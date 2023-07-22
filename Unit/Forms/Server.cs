@@ -61,6 +61,7 @@ namespace Unit
                         TcpClient client = listener.AcceptTcpClient();
                         clients.Add(client);
                         print(client.Client.RemoteEndPoint + " connected.");
+                        sendData(client.Client.RemoteEndPoint + " connected.");
                     }
                     catch
                     {

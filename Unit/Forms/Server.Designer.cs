@@ -34,6 +34,9 @@
             // 
             // tb_log
             // 
+            this.tb_log.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_log.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(51)))), ((int)(((byte)(56)))));
             this.tb_log.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tb_log.Font = new System.Drawing.Font("Yu Gothic UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -56,8 +59,6 @@
             this.ClientSize = new System.Drawing.Size(708, 450);
             this.Controls.Add(this.tb_log);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(724, 489);
             this.MinimumSize = new System.Drawing.Size(724, 489);
             this.Name = "Server";
             this.Text = "Server";

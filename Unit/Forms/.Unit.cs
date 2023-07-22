@@ -172,7 +172,6 @@ namespace Unit
                             if (! client.Connected)
                             {
                                 // サーバーとの接続の実態がないなら
-
                                 position("Home");
                                 client = null;
                             }
@@ -256,6 +255,17 @@ namespace Unit
         {
             /* bt_closeがクリックされたとき */
             this.Close();
+        }
+
+        private void Unit_Resize(object sender, EventArgs e)
+        {
+            /* リサイズされたとき */
+            // コントロールをリサイズする
+            tb_message.Size = new System.Drawing.Size(this.Width-294, 27);
+            tb_message.Location = new System.Drawing.Point(175, this.Height-78);
+            bt_send.Location = new System.Drawing.Point(this.Width-113, this.Height-78);
+            bt_host.Location = new System.Drawing.Point(16, this.Height-70);
+            bt_connect.Location = new System.Drawing.Point(16, this.Height-111);
         }
     }
 }
