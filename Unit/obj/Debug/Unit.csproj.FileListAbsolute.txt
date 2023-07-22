@@ -1,0 +1,14 @@
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\bin\Debug\Unit.exe.config
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\bin\Debug\Unit.exe
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\bin\Debug\Unit.pdb
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.csproj.AssemblyReference.cache
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.csproj.SuggestedBindingRedirects.cache
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Properties.Resources.resources
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Unit.resources
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.csproj.GenerateResource.cache
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.csproj.CoreCompileInputs.cache
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.exe
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.pdb
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Connect.resources
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Host.resources
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Server.resources
