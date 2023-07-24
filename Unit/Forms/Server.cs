@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -60,8 +62,6 @@ namespace Unit
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         clients.Add(client);
-                        print(client.Client.RemoteEndPoint + " connected.");
-                        sendData(client.Client.RemoteEndPoint + " connected.");
                     }
                     catch
                     {
@@ -74,7 +74,7 @@ namespace Unit
         public void end()
         {
             /* サーバーを停止する */
-            sendData("Server closed.");
+            sendData("{\"protocol\": \"unit.server\", \"packet\": \"end\"}");
             lock (obj)
             {
                 if (listener == null)
@@ -119,7 +119,7 @@ namespace Unit
                             {
                                 var data = new byte[256];
                                 int size = 0;
-                                string resultMessage = "";
+                                string packet = "";
                                 var stream = client.GetStream();
                                 while (true)
                                 {
@@ -134,15 +134,47 @@ namespace Unit
                                         // 読み取りが終わっているなら
                                         break;
                                     }
-                                    resultMessage += System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
-                                    if (resultMessage == "")
+                                    packet += System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
+                                    if (packet == "")
                                     {
                                         // データが空白なら
                                         break;
                                     }
-                                    resultMessage = DateTime.Now.ToString("HH:mm ") + client.Client.RemoteEndPoint + ": " + resultMessage;
-                                    sendData(resultMessage);
-                                    print(resultMessage);
+                                    JObject json = JObject.Parse(packet);
+                                    if ((string)json["protocol"] != "unit.client")
+                                    {
+                                        // プロトコルが不正なら
+                                        continue;
+                                    }
+                                    if ((string)json["packet"] == "message")
+                                    {
+                                        // メッセージパケットなら
+                                        sendData("{\"protocol\": \"unit.server\", \"packet\": \"message\", \"message\": \"" + client.Client.RemoteEndPoint + ": " + (string)json["message"] + "\"}");
+                                        print(client.Client.RemoteEndPoint + ": " + (string) json["message"]);
+                                        continue;
+                                    }
+                                    if ((string)json["packet"] == "connect")
+                                    {
+                                        // コネクトパケットなら
+                                        sendData("{\"protocol\": \"unit.server\", \"packet\": \"message\", \"message\": \"" + client.Client.RemoteEndPoint + " connected.\"}");
+                                        print(client.Client.RemoteEndPoint + " connected.");
+                                        continue;
+                                    }
+                                    if ((string)json["packet"] == "disconnect")
+                                    {
+                                        // ディスコネクトパケットなら
+                                        for (int i = clients.Count - 1; i >= 0; i--)
+                                        {
+                                            if (clients[i].Equals(client))
+                                            {
+                                                clients.RemoveAt(i);
+                                            }
+                                        }
+                                        sendData("{\"protocol\": \"unit.server\", \"packet\": \"message\", \"message\": \"" + client.Client.RemoteEndPoint + " disconnected.\"}");
+                                        print(client.Client.RemoteEndPoint + " disconnected.");
+                                        continue;
+                                    }
+
                                     System.Threading.Thread.Sleep(1);
                                 }
                             }
@@ -151,23 +183,13 @@ namespace Unit
                                 print("Failed to receive from client.: " + e.Message);
                             }
                         }
-                        for (int i = clients.Count - 1; i >= 0; i--)
-                        {
-                            if (! clients[i].Connected)
-                            {
-                                // クライアントが接続されていないなら
-                                TcpClient client = listener.AcceptTcpClient();
-                                print(client + " disconnected.");
-                                clients.RemoveAt(i);
-                            }
-                        }
                     }
                     System.Threading.Thread.Sleep(1);
                 }
             });
         }
 
-        public void sendData(string message)
+        public void sendData(string packet)
         {
             /* クライアントにデータを送信する */
             lock (obj)
@@ -181,7 +203,7 @@ namespace Unit
                 {
                     try
                     {
-                        var data = System.Text.Encoding.UTF8.GetBytes(message);
+                        var data = System.Text.Encoding.UTF8.GetBytes(packet);
                         var stream = client.GetStream();
                         stream.Write(data, 0, data.Length);
                     }catch (Exception e)

@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_3C590723DFB1B4F2CD7FA45644973999"
+        "OwnerKey" = "8:_AA3A688182AA4C1F8BF63F4DE0B5BAEE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_47D9EE2F38888078997C5DFBBF6758D5"
         "OwnerKey" = "8:_AA3A688182AA4C1F8BF63F4DE0B5BAEE"
         "MsmSig" = "8:_UNDEFINED"
@@ -41,6 +47,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_AA3A688182AA4C1F8BF63F4DE0B5BAEE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3C590723DFB1B4F2CD7FA45644973999"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -144,6 +156,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3C590723DFB1B4F2CD7FA45644973999"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_3C590723DFB1B4F2CD7FA45644973999"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_AD2BDD9538E04F7FBAFD0FE949579B94"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_47D9EE2F38888078997C5DFBBF6758D5"
             {
             "AssemblyRegister" = "3:1"
@@ -271,15 +314,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Unit"
-        "ProductCode" = "8:{3D84E9AA-4734-4504-8FFB-E6719F863B4C}"
-        "PackageCode" = "8:{07467D2D-4DCB-4A43-AF32-9FEE1362A870}"
+        "ProductCode" = "8:{91FE8033-93D8-448C-AC8D-267ADE167AC9}"
+        "PackageCode" = "8:{DD7E90B5-A254-423E-A12A-34965D3374F5}"
         "UpgradeCode" = "8:{491DC567-9600-4CD7-AF1B-710DE09FF8E3}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.0"
+        "ProductVersion" = "8:1.2.1"
         "Manufacturer" = "8:飴豆腐"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

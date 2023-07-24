@@ -12,3 +12,6 @@ C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.pdb
 C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Connect.resources
 C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Host.resources
 C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.Server.resources
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\bin\Debug\Newtonsoft.Json.dll
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\bin\Debug\Newtonsoft.Json.xml
+C:\Users\飴豆腐\Desktop\開発環境\Unit\Unit\obj\Debug\Unit.csproj.CopyComplete

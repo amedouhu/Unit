@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Unit
         public void print(string message)
         {
             /* チャットに出力する */
-            if (String.IsNullOrWhiteSpace(message))
+            if (string.IsNullOrWhiteSpace(message))
             {
                 // メッセージが空白なら
                 return;
@@ -53,7 +54,7 @@ namespace Unit
             }
         }
 
-        public void position(String position)
+        public void position(string position)
         {
             /* ポジションを設定する */
             if (this.InvokeRequired)
@@ -71,7 +72,7 @@ namespace Unit
             }
         }
 
-        public void connect(String address, int port)
+        public void connect(string address, int port)
         {
             /* サーバーとの接続処理 */
             try
@@ -86,6 +87,7 @@ namespace Unit
                 {
                     client = new TcpClient(address, port);
                 }
+                sendData("{\"protocol\": \"unit.client\", \"packet\": \"connect\"}");
                 position(address + ":" + port);
                 print("Connected to the server.");
             }catch (Exception e)
@@ -106,6 +108,7 @@ namespace Unit
                     // サーバーとの接続がないなら
                     return;
                 }
+                sendData("{\"protocol\": \"unit.client\", \"packet\": \"disconnect\"}");
                 client.Close();
                 client = null;
                 position("Home");
@@ -136,7 +139,7 @@ namespace Unit
                         {
                             var data = new byte[256];
                             int size = 0;
-                            string resultMessage = "";
+                            string packet = "";
                             var stream = client.GetStream();
                             while (true)
                             {
@@ -151,15 +154,41 @@ namespace Unit
                                     // 全てのデータを読み取ったなら
                                     break;
                                 }
-                                resultMessage += System.Text.Encoding.UTF8.GetString(data, 0, size);
+                                packet += System.Text.Encoding.UTF8.GetString(data, 0, size);
                                 System.Threading.Thread.Sleep(1);
                             }
-                            if (resultMessage == "")
+                            if (packet == "")
                             {
                                 // データが空白なら
                                 continue;
                             }
-                            print(resultMessage);
+                            JObject json = JObject.Parse(packet);
+                            if ((string) json["protocol"] != "unit.server")
+                            {
+                                // プロトコルが不正なら
+                                continue;
+                            }
+                            if ((string) json["packet"] == "message")
+                            {
+                                // メッセージパケットなら
+                                print((string)json["message"]);
+                                continue;
+                            }
+                            if ((string)json["packet"] == "end")
+                            {
+                                // エンドパケットなら
+                                print("server closed.");
+                                try
+                                {
+                                    client.Close();
+                                    client = null;
+                                }catch
+                                {
+                                    print("Failed to client close.");
+                                }
+                                position("Home");
+                                continue;
+                            }
                         }
                         catch (Exception e)
                         {
@@ -184,9 +213,14 @@ namespace Unit
             });
         }
 
-        public void sendData(String message)
+        public void sendData(string packet)
         {
             /* データの送信処理 */
+            if (string.IsNullOrWhiteSpace(packet))
+            {
+                // メッセージが空白なら
+                return;
+            }
             try
             {
                 // データの送信を試みる
@@ -198,12 +232,7 @@ namespace Unit
                         position("Home");
                         return;
                     }
-                    if (String.IsNullOrWhiteSpace(message))
-                    {
-                        // メッセージが空白なら
-                        return;
-                    }
-                    var data = System.Text.Encoding.UTF8.GetBytes(message);
+                    var data = System.Text.Encoding.UTF8.GetBytes(packet);
                     var stream = client.GetStream();
                     stream.Write(data, 0, data.Length);
                 }
@@ -217,7 +246,7 @@ namespace Unit
         private void bt_send_Click(object sender, EventArgs e)
         {
             /* bt_sendがクリックされたとき */
-            if (String.IsNullOrWhiteSpace(tb_message.Text))
+            if (string.IsNullOrWhiteSpace(tb_message.Text))
             {
                 // メッセージが空白なら
                 return;
@@ -230,7 +259,7 @@ namespace Unit
             }else
             {
                 // サーバーとの接続があるなら
-                sendData(tb_message.Text);
+                sendData("{\"protocol\": \"unit.client\", \"packet\": \"message\", \"message\": \"" + tb_message.Text + "\"}");
             }
             tb_message.Text = "";
         }
